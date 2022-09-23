@@ -27,7 +27,7 @@ jobs:
     - name: Buld & Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: chjplove/kafka-produer-processor
+        image: chjplove/kafka-producer-processor
         tag: latest 
         registry: docker.io
         username: ${{secrets.DOCKER_USERNAME}}

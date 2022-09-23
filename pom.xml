@@ -152,6 +152,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>kafka-produer-processor</finalName>
     </build>
 
 

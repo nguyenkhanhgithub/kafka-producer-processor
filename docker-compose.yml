@@ -1,0 +1,9 @@
+version: '3'
+services:
+  rts-be:
+    image: chjplove/kafka-producer-processor
+    #    build:
+    #      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '7001:7001'

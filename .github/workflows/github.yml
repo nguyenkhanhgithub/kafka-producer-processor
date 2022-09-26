@@ -41,8 +41,8 @@ jobs:
     - name: Run a script on remote server (start the application)
       uses: fifsky/ssh-action@master
       with:
-        script: |
-          echo "a";
+        command: |
+          docker stop kafka-producer-processor
         host: ${{ secrets.HOST }}
         user: ${{ secrets.SSH_USER }}
         pass: ${{ secrets.SSH_PASSWORD }}

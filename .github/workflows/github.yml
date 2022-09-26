@@ -33,8 +33,8 @@ jobs:
     - name: Deploy the package to the remote server
       uses: garygrossgarten/github-action-scp@release
       with:
-        local: /app/target/kafka-producer-processor-0.0.1-SNAPSHOT.jar
-        remote: /usr/local/lib/kafka-producer-processor.jar
+        local: /app/target/kafka-producer-processor.jar
+        remote: kafka-producer-processor.jar
         host: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}

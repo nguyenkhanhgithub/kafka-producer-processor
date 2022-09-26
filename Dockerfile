@@ -4,7 +4,6 @@ COPY pom.xml ./pom.xml
 RUN mvn dependency:go-offline -B
 COPY src ./src
 RUN mvn -Dmaven.test.skip=true clean package
-
 #
 # Package stage
 #

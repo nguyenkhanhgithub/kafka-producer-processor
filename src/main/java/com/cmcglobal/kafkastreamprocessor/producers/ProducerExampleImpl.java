@@ -34,7 +34,7 @@ public class ProducerExampleImpl implements BaseProducerInterface {
     @Autowired protected EntityMapper entityMapper;
 
     @Override
-//    @Scheduled(cron = "0/5 * * * * *")
+    @Scheduled(cron = "0/5 * * * * *")
     public void producer() {
         DashboardEmailValue exampleAvro = new DashboardEmailValue();
         exampleAvro.setId(100);

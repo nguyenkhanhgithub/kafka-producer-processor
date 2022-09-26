@@ -43,7 +43,7 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         script: |
-          docker stop kafka-producer-processor \
+          docker stop kafka-producer-processor
         host: ${{ secrets.HOST }}
         user: ${{ secrets.SSH_USER }}
         pass: ${{ secrets.SSH_PASSWORD }}

@@ -34,7 +34,7 @@ public class ProducerExampleImpl implements BaseProducerInterface {
     @Autowired protected EntityMapper entityMapper;
 
     @Override
-    @Scheduled(cron = "0/5 * * * * *")
+//    @Scheduled(cron = "0/5 * * * * *")
     public void producer() {
         DashboardEmailValue exampleAvro = new DashboardEmailValue();
         exampleAvro.setId(100);
@@ -57,7 +57,7 @@ public class ProducerExampleImpl implements BaseProducerInterface {
         kafkaTemplateHRms.send(TopicConfig.HRMS_EVENT_TOPIC, avro);
     }
 
-    @Scheduled(cron = "0/5 * * * * *")
+//    @Scheduled(cron = "0/5 * * * * *")
     public void jiraProducer() {
         JiraTicketValueAvro avro = new JiraTicketValueAvro();
         JiraTicketValue value = new JiraTicketValue();

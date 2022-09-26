@@ -1,6 +1,6 @@
 version: '3'
 services:
-  rts-be:
+  kafka-producer-processor:
     image: chjplove/kafka-producer-processor
     #    build:
     #      dockerfile: Dockerfile

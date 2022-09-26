@@ -1,9 +1,0 @@
-version: '2.2'
-services:
-  kafka-producer-processor:
-    image: chjplove/kafka-producer-processor
-    #    build:
-    #      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - '7001:7001'

@@ -39,7 +39,6 @@ jobs:
 #        username: ${{ secrets.SSH_USER }}
 #        password: ${{ secrets.SSH_PASSWORD }}
     - name: Run a script on remote server (start the application)
-      if: always()
       uses: fifsky/ssh-action@master
       with:
         script: |

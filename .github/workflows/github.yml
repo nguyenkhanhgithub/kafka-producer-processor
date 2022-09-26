@@ -43,12 +43,11 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         script: |
-          docker-compose -f ./kafka-producer-processor-docker-compose.yml up -d
-#          docker stop kafka-producer-processor
-#          && docker container rm kafka-producer-processor
-#          && docker image rm chjplove/kafka-producer-processor
-#          && docker pull chjplove/kafka-producer-processor:latest
-#          && docker run -p 7001:7001 --name kafka-producer-processor -d chjplove/kafka-producer-processor:latest
+          docker stop kafka-producer-processor
+          && docker container rm kafka-producer-processor
+          && docker image rm chjplove/kafka-producer-processor
+          && docker pull chjplove/kafka-producer-processor:latest
+          && docker run -p 7001:7001 --name kafka-producer-processor -d chjplove/kafka-producer-processor:latest
         host: ${{ secrets.HOST }}
         user: ${{ secrets.SSH_USER }}
         pass: ${{ secrets.SSH_PASSWORD }}

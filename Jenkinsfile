@@ -16,14 +16,12 @@ node {
       sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
     }
     stage('Build') {
-      sh "mvn -Dmaven.test.skip=true clean package"
+      sh """
+        egrep -q '^FROM .* AS builder\$' ${dockerFile} \
+        docker build -t ${imageName} --target builder -f ${dockerFile} .
+        docker build -t ${imageName}:${version} -f ${dockerFile} .
+      """
     }
-//     stage('build') {
-//       sh """
-//         docker build -t ${imageName} --target builder -f ${dockerFile} .
-//         docker build -t ${imageName}:${version} -f ${dockerFile} .
-//       """
-//     }
 //     stage('push') {
 //       sh """
 //         docker push ${imageName}:${imageVersion}

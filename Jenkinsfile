@@ -15,6 +15,7 @@ node {
       sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
     }
     stage('Build') {
+        sh "docker build -t ${imageName} --target builder -f ${dockerFile} ."
         sh "docker build -t ${imageName}:${version} -f ${dockerFile} ."
     }
 //     stage('push') {

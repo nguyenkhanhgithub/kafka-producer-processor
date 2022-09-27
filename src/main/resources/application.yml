@@ -34,3 +34,5 @@ logging:
     org.springframework: info
     com.cmcglobal.kafkstreamprocessor: info
 debug: true
+server:
+  port: 7001

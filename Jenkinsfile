@@ -6,7 +6,6 @@ node {
   try {
 
     project = "kafka-producer-processor"
-    dockerRepo = "docker.io"
     dockerFile = "Dockerfile"
     imageName = "chjplove/kafka-producer-processor"
     version = "latest"
@@ -16,11 +15,9 @@ node {
       sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
     }
     stage('Build') {
-      sh """
-        egrep -q '^FROM .* AS builder\$' ${dockerFile} \
-        docker build -t ${imageName} --target builder -f ${dockerFile} .
-        docker build -t ${imageName}:${version} -f ${dockerFile} .
-      """
+        sh "egrep -q '^FROM .* AS builder\$' ${dockerFile}"
+        sh "docker build -t ${imageName} --target builder -f ${dockerFile} ."
+        sh "docker build -t ${imageName}:${version} -f ${dockerFile} ."
     }
 //     stage('push') {
 //       sh """

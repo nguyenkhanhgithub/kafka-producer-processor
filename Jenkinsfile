@@ -16,14 +16,7 @@ node {
       sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
     }
     stage('Build') {
-        agent {
-            docker {
-                image 'mvn -Dmaven.test.skip=true clean package'
-            }
-      }
-      steps {
-      	sh 'mvn -Dmaven.test.skip=true clean package'
-      }
+      sh 'mvn -Dmaven.test.skip=true clean package'
     }
 //     stage('build') {
 //       sh """

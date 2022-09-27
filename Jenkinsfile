@@ -17,8 +17,7 @@ node {
     }
     stage('build') {
       sh """
-        egrep -q '^FROM .* AS builder\$' ${dockerFile} \
-          && docker build -t ${imageName} --target builder -f ${dockerFile} .
+        docker build -t ${imageName} --target builder -f ${dockerFile} .
         docker build -t ${imageName}:${version} -f ${dockerFile} .
       """
     }

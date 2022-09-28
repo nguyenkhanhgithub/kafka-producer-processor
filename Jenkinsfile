@@ -11,6 +11,7 @@ node {
       checkout scm
       sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
     }
+
     stage('Build') {
             sh "docker build -t ${imageName}:${version} -f ${dockerFile} ."
     }

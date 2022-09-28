@@ -2,13 +2,7 @@
 
 node {
   properties([disableConcurrentBuilds()])
-  def mvnHome = tool 'maven:3.6.1-jdk-8-alpine'
   try {
-    agent {
-        docker {
-            image 'maven:3.6.1-jdk-8-alpine'
-        }
-    }
     project = "kafka-producer-processor"
     dockerFile = "Dockerfile"
     imageName = "chjplove/kafka-producer-processor"

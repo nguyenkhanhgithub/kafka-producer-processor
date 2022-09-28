@@ -31,8 +31,8 @@ node {
     switch(env.BRANCH_NAME) {
         case 'main':
             stage('Pull Image') {
-                sh "docker stop ${registry}/${imageName}"
-                sh "docker container rm ${registry}/${imageName}"
+                sh "docker stop ${imageName}"
+                sh "docker container rm ${imageName}"
                 sh "docker image rm ${registry}/${imageName}"
                 sh "docker pull ${registry}/${imageName}:${version}"
             }

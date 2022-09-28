@@ -1,29 +1,28 @@
 #!/usr/bin/env groovy
 
-// node {
-//   properties([disableConcurrentBuilds()])
-//
-//   try {
-//
-//     project = "kafka-producer-processor"
-//     dockerFile = "Dockerfile"
-//     imageName = "chjplove/kafka-producer-processor"
-//     version = "latest"
-//
-//     stage('Checkout') {
-//       checkout scm
-//       sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
-//     }
-//     stage('push') {
-//       sh """
-//         docker push ${imageName}:${imageVersion}
-//         docker tag ${imageName}:${imageVersion} ${imageName}:${imageVersion}
-//         docker push ${imageName}:${version}
-//         echo ${imageName}:${imageVersion}
-//       """
-//     }
-//   } catch (e) {
-//     currentBuild.result = "FAILED"
-//     throw e
-//   }
-// }
+node {
+  properties([disableConcurrentBuilds()])
+
+  try {
+
+    project = "kafka-producer-processor"
+    dockerFile = "Dockerfile"
+    imageName = "chjplove/kafka-producer-processor"
+    version = "latest"
+
+    stage('Checkout') {
+      checkout scm
+      sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
+    }
+    stage('Build') {
+            sh """
+                egrep -q '^FROM .* AS builder\$' ${dockerFile} \
+                && docker build -t ${imageName}-stage-builder --target builder -f ${dockerFile} .
+                docker build -t ${imageName}:${version} -f ${dockerFile} .
+            """
+    }
+  } catch (e) {
+    currentBuild.result = "FAILED"
+    throw e
+  }
+}

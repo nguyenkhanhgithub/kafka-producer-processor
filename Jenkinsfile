@@ -22,7 +22,7 @@ node {
     stage('Build Image') {
         sh "docker build -t ${imageName}:${version} -f ${dockerFile} ."
     }
-    state('Push Image') {
+    stage('Push Image') {
         sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
         sh "docker push ${registry}/${imageName}:${version}"
     }

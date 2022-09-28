@@ -2,14 +2,17 @@
 
 node {
   properties([disableConcurrentBuilds()])
-
+  def mvnHome = tool 'maven:3.6.1-jdk-8-alpine'
   try {
-
+    agent {
+        docker {
+            image 'maven:3.6.1-jdk-8-alpine'
+        }
+    }
     project = "kafka-producer-processor"
     dockerFile = "Dockerfile"
     imageName = "chjplove/kafka-producer-processor"
     version = "latest"
-
     stage('Checkout') {
       checkout scm
       sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
@@ -17,8 +20,7 @@ node {
     stage('Build') {
             sh """
                 egrep -q '^FROM .* AS builder\$' ${dockerFile} \
-                && docker build -t ${imageName}-stage-builder --target builder -f ${dockerFile} .
-                docker build -t ${imageName}:${version} -f ${dockerFile} .
+                && docker build -t ${imageName}:${version} -f ${dockerFile} .
             """
     }
   } catch (e) {

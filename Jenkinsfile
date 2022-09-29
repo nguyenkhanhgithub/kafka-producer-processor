@@ -17,7 +17,6 @@ node {
         checkout scm
         sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
     }
-
     stage('Build Image') {
         sh "docker build -t ${imageName}:${version} -f ${dockerFile} ."
     }
@@ -29,13 +28,13 @@ node {
     switch(env.BRANCH_NAME) {
         case 'main':
             stage('Pull Image') {
-                def containerExists = sh(script: "docker ps -a | grep ${imageName} | grep -v Exited", returnStdout: true) == 0
-                if (containerExists) {
+                def containerExists = sh(script: "docker ps -a | grep ${imageName} | grep -v Exited", returnStdout: true)
+                if ("${containerExists}" != '') {
                        sh "docker stop ${imageName}"
                        sh "docker container rm ${imageName}"
                 }
-                def imageExists = sh(script: "docker images -q ${registry}/${imageName}:${version}", returnStdout: true) == 0
-                if(imageExists){
+                def imageExists = sh(script: "docker images -q ${registry}/${imageName}:${version}", returnStdout: true)
+                if(${imageExists} != ''){
                     sh "docker image rm ${registry}/${imageName}"
                     sh "docker pull ${registry}/${imageName}:${version}"
                 }

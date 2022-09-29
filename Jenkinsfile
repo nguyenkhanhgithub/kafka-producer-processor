@@ -36,9 +36,12 @@ node {
 
                 imageExists = sh "docker images -q ${registry}/${imageName}"
                 if ("${imageExists}" != "null") {
-                    sh "docker image rm ${imageName}"
+                    sh "docker image rm ${registry}/${imageName}"
                 }
                 sh "docker pull ${registry}/${imageName}:${version}"
+            }
+            stage("Deploy") {
+                sh "docker run -p 7001:7001 --name ${imageName} ${registry}/${imageName}:${version}"
             }
             break;
     }

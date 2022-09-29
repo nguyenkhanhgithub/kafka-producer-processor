@@ -31,7 +31,7 @@ node {
                 script {
                     def oldContainerID = sh(script: "docker ps -a -fname=${imageName} -q", returnStdout: true)
                     if ("${oldContainerID}" != '') {
-                        echo "Deleting image id: ${oldImageID}..."
+                        echo "Deleting image id: ${oldContainerID}..."
                         sh "docker stop ${oldContainerID}"
                         sh "docker container rm ${oldContainerID}"
                     }

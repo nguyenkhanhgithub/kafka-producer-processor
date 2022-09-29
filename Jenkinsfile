@@ -28,18 +28,8 @@ node {
     switch(env.BRANCH_NAME) {
         case 'main':
             stage('Pull Image') {
-                def containerExists = sh "docker container ls -a -fname=${imageName} -q"
-                sh "echo container ${containerExists}"
-                if (containerExists != "null") {
-                    sh "docker stop ${containerExists}"
-                    sh "docker container rm ${containerExists}"
-                }
-//
-//                 imageExists = sh "docker images -q ${registry}/${imageName}"
-//                 if (imageExists != "null") {
-//                     sh "docker image rm ${imageExists}"
-//                 }
-//                 sh "docker pull ${registry}/${imageName}:${version}"
+                sh """docker ps -q --filter ancestor="${registry}/${imageName}" | xargs -r docker stop"""
+                sh """docker rm $(docker ps -a -q --filter ancestor="${registry}/${imageName}")"""
             }
             stage("Deploy") {
                 sh "docker run -p 7001:7001 --name ${imageName} ${registry}/${imageName}:${version} -d"

@@ -49,7 +49,7 @@ node {
 //                 sh "docker pull ${registry}/${imageName}:${version}"
             }
             stage("Deploy") {
-//                 sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
+                sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
             }
             break;
     }

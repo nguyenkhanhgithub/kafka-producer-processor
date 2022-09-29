@@ -24,6 +24,7 @@ node {
         sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
         sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
         sh "docker push ${registry}/${imageName}:${version}"
+        sh "docker image rm ${registry}/${imageName}:${version}"
     }
     switch(env.BRANCH_NAME) {
         case 'main':
@@ -42,11 +43,6 @@ node {
                     }
                     sh "docker pull ${registry}/${imageName}:${version}"
                 }
-//                 sh "docker ps -q --filter ancestor=${registry}/${imageName} | xargs -r docker stop"
-//                 sh "docker ps -a | grep ${imageName} | cut -d ' ' -f 1 | xargs -r docker rm"
-//                 sh """docker rm \$(docker ps -a -q --filter ancestor=${registry}/${imageName})"""
-//                 sh """docker image rm \$(docker images -q ${registry}/${imageName})"""
-//                 sh "docker pull ${registry}/${imageName}:${version}"
             }
             stage("Deploy") {
                 sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"

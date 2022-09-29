@@ -30,8 +30,15 @@ node {
             stage('Pull Image') {
                 containerExists = sh "docker container ls -a -fname=${imageName} -q"
                 if ("${containerExists}" != "null") {
+                    sh "docker stop ${imageName}"
                     sh "docker container rm ${imageName}"
                 }
+
+                imageExists = sh "docker images -q ${registry}/${imageName}"
+                if ("${imageExists}" != "null") {
+                    sh "docker image rm ${imageName}"
+                }
+                sh "docker pull ${registry}/${imageName}:${version}"
             }
             break;
     }

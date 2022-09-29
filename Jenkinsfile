@@ -29,7 +29,7 @@ node {
         case 'main':
             stage('Pull Image') {
                 containerExists = sh "docker container ls -a -fname=${imageName} -q"
-                if ("${containerExists}" != null) {
+                if ("${containerExists}" != "null") {
                     sh "docker container rm ${imageName}"
                 }
             }

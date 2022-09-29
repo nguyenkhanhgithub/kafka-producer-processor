@@ -29,10 +29,20 @@ node {
     switch(env.BRANCH_NAME) {
         case 'main':
             stage('Pull Image') {
-                sh "docker stop ${imageName}"
-                sh "docker container rm ${imageName}"
-                sh "docker image rm ${registry}/${imageName}"
-                sh "docker pull ${registry}/${imageName}:${version}"
+                def containerExists = sh(script: "docker ps -a | grep ${imageName} | grep -v Exited", returnStdout: true) == 0
+                if (containerExists) {
+                       sh "docker stop ${imageName}"
+                       sh "docker container rm ${imageName}"
+                }
+                def imageExists = sh(script: "docker images -q ${registry}/${imageName}:${version}", returnStdout: true) == 0
+                if(imageExists){
+                    sh "docker image rm ${registry}/${imageName}"
+                    sh "docker pull ${registry}/${imageName}:${version}"
+                }
+//                 sh "docker stop ${imageName}"
+//                 sh "docker container rm ${imageName}"
+//                 sh "docker image rm ${registry}/${imageName}"
+//                 sh "docker pull ${registry}/${imageName}:${version}"
             }
             stage('Run Image') {
                 sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
@@ -41,6 +51,6 @@ node {
     }
   } catch (e) {
     currentBuild.result = "FAILED"
-    throw e
+    throw
   }
 }

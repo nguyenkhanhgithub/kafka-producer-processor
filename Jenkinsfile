@@ -28,7 +28,7 @@ node {
     switch(env.BRANCH_NAME) {
         case 'main':
             stage('Pull Image') {
-                containerExists = sh "docker container ls -a -fname=${imageName} -q"
+                def containerExists = sh "docker container ls -a -fname=${imageName} -q"
                 sh "echo container ${containerExists}"
                 if (containerExists != "null") {
                     sh "docker stop ${containerExists}"

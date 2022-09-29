@@ -29,18 +29,7 @@ node {
         case 'main':
             stage('Pull Image') {
                 def containerExists = sh(script: "docker ps -a | grep ${imageName} | grep -v Exited", returnStdout: true).trim()
-                if ("${containerExists}" != '') {
-                       sh "docker stop ${imageName}"
-                }
-                sh "docker container rm ${imageName}"
-                def imageExists = sh(script: "docker images -q ${registry}/${imageName}:${version}", returnStdout: true).trim()
-                if(${imageExists} != ''){
-                    sh "docker image rm ${registry}/${imageName}"
-                }
-//                 sh "docker stop ${imageName}"
-//                 sh "docker container rm ${imageName}"
-//                 sh "docker image rm ${registry}/${imageName}"
-                sh "docker pull ${registry}/${imageName}:${version}"
+                sh "echo ${containerExists}"
             }
             stage('Run Image') {
                 sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"

@@ -29,7 +29,7 @@ node {
         case 'main':
             stage('Pull Image') {
                 sh "docker ps -q --filter ancestor=${registry}/${imageName} | xargs -r docker stop"
-                sh "docker rm $(docker ps -a -q --filter ancestor=${registry}/${imageName})"
+                sh """docker rm \$(docker ps -a -q --filter ancestor=${registry}/${imageName})"""
             }
             stage("Deploy") {
                 sh "docker run -p 7001:7001 --name ${imageName} ${registry}/${imageName}:${version} -d"

@@ -17,25 +17,29 @@ node {
         checkout scm
         sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
     }
-    stage('Build Image') {
-        sh "docker build -t ${registry}/${imageName}:${version} -f ${dockerFile} ."
-    }
-    stage('Push Image') {
-        sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
-        sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
-        sh "docker push ${registry}/${imageName}:${version}"
-    }
+//     stage('Build Image') {
+//         sh "docker build -t ${registry}/${imageName}:${version} -f ${dockerFile} ."
+//     }
+//     stage('Push Image') {
+//         sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
+//         sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
+//         sh "docker push ${registry}/${imageName}:${version}"
+//     }
     switch(env.BRANCH_NAME) {
         case 'main':
             stage('Pull Image') {
-                sh "docker ps -q --filter ancestor=${registry}/${imageName} | xargs -r docker stop"
-                sh "docker ps -a | grep ${imageName} | cut -d ' ' -f 1 | xargs docker rm"
+                script {
+                    def oldImageID = sh(script: 'docker images -qf reference=\${registry}/${imageName}:\${imageTag}',returnStdout: true)
+                    echo "Old Image: ${oldImageID}"
+                }
+//                 sh "docker ps -q --filter ancestor=${registry}/${imageName} | xargs -r docker stop"
+//                 sh "docker ps -a | grep ${imageName} | cut -d ' ' -f 1 | xargs -r docker rm"
 //                 sh """docker rm \$(docker ps -a -q --filter ancestor=${registry}/${imageName})"""
 //                 sh """docker image rm \$(docker images -q ${registry}/${imageName})"""
 //                 sh "docker pull ${registry}/${imageName}:${version}"
             }
             stage("Deploy") {
-                sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
+//                 sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
             }
             break;
     }

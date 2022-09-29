@@ -28,15 +28,18 @@ node {
     switch(env.BRANCH_NAME) {
         case 'main':
             stage('Pull Image') {
-                def containerExists = sh(script: "docker ps -a | grep ${imageName} | grep -v Exited", returnStdout: true)
-                if ("${containerExists}" != '') {
-                       sh "docker stop ${imageName}"
-                }
+//                 def containerExists = sh(script: "docker ps -a | grep ${imageName} | grep -v Exited", returnStdout: true)
+//                 if ("${containerExists}" != '') {
+//                        sh "docker stop ${imageName}"
+//                 }
+//                 sh "docker container rm ${imageName}"
+//                 def imageExists = sh(script: "docker images -q ${registry}/${imageName}:${version}", returnStdout: true)
+//                 if(${imageExists} != ''){
+//                     sh "docker image rm ${registry}/${imageName}"
+//                 }
+                sh "docker stop ${imageName}"
                 sh "docker container rm ${imageName}"
-                def imageExists = sh(script: "docker images -q ${registry}/${imageName}:${version}", returnStdout: true)
-                if(${imageExists} != ''){
-                    sh "docker image rm ${registry}/${imageName}"
-                }
+                sh "docker image rm ${registry}/${imageName}"
                 sh "docker pull ${registry}/${imageName}:${version}"
             }
             stage('Run Image') {

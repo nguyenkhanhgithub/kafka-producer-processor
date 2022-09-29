@@ -29,7 +29,7 @@ node {
         case 'main':
             stage('Pull Image') {
                 script {
-                    def oldImageID = sh(script: 'docker images -qf reference=\${registry}/${imageName}:\${imageTag}',returnStdout: true)
+                    def oldImageID = sh(script: 'docker images -qf reference=\${registry}/\${imageName}:\${version}',returnStdout: true)
                     echo "Old Image: ${oldImageID}"
                 }
 //                 sh "docker ps -q --filter ancestor=${registry}/${imageName} | xargs -r docker stop"

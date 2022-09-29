@@ -29,6 +29,12 @@ node {
         case 'main':
             stage('Pull Image') {
                 script {
+                    def oldContainerID = sh(script: "docker ps -a -fname=${imageName} -q", returnStdout: true)
+                    if ("${oldContainerID}" != '') {
+                        echo "Deleting image id: ${oldImageID}..."
+                        sh "docker stop ${oldContainerID}"
+                        sh "docker container rm ${oldContainerID}"
+                    }
                     def oldImageID = sh(script: "docker images -qf reference=${registry}/${imageName}:${version}",returnStdout: true)
                     if ("${oldImageID}" != '') {
                         echo "Deleting image id: ${oldImageID}..."

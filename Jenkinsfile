@@ -39,10 +39,6 @@ node {
                     sh "docker image rm ${registry}/${imageName}"
                     sh "docker pull ${registry}/${imageName}:${version}"
                 }
-//                 sh "docker stop ${imageName}"
-//                 sh "docker container rm ${imageName}"
-//                 sh "docker image rm ${registry}/${imageName}"
-//                 sh "docker pull ${registry}/${imageName}:${version}"
             }
             stage('Run Image') {
                 sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"

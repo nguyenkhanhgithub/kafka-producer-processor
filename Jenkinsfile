@@ -21,7 +21,6 @@ node {
         sh "docker build -t ${registry}/${imageName}:${version} -f ${dockerFile} ."
     }
     stage('Push Image') {
-        sh "kubectl get nodes"
         sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
         sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
         sh "docker push ${registry}/${imageName}:${version}"

@@ -1,7 +1,4 @@
-#!/usr/bin/env groovy
-node {
-    rancherRedeploy alwaysPull: true, credential: '67e3a95c-316d-4e14-9366-f44b604fdf8e', images: 'chjplove/kafka-producer-processor:latest', workload: '/p/c-b57jq:p-nn6qt/workload/deployment:default:kafka-producer-processor'
-}
+// #!/usr/bin/env groovy
 // node {
 //    agent {
 //        docker {
@@ -33,28 +30,30 @@ node {
 //            stage('Pull Image') {
 //                script {
 //                    // check old container if exists and delete old container
-//                    def oldContainerID = sh(script: "docker ps -a -fname=${imageName} -q", returnStdout: true)
-//                    if ("${oldContainerID}" != '') {
-//                        echo "Deleting image id: ${oldContainerID}..."
-//                        sh "docker stop ${oldContainerID}"
-//                        sh "docker container rm ${oldContainerID}"
-//                    }
+// //                    def oldContainerID = sh(script: "docker ps -a -fname=${imageName} -q", returnStdout: true)
+// //                    if ("${oldContainerID}" != '') {
+// //                        echo "Deleting image id: ${oldContainerID}..."
+// //                        sh "docker stop ${oldContainerID}"
+// //                        sh "docker container rm ${oldContainerID}"
+// //                    }
 //
 //                     // check old image if exists and delete old image
-//                    def oldImageID = sh(script: "docker images -qf reference=${registry}/${imageName}:${version}",returnStdout: true)
-//                    if ("${oldImageID}" != '') {
-//                        echo "Deleting image id: ${oldImageID}..."
-//                        sh "docker rmi -f ${oldImageID}"
-//                        sh "docker rmi \$(docker images -qf reference=${registry}/${imageName} -q)"
-//                    }
+// //                    def oldImageID = sh(script: "docker images -qf reference=${registry}/${imageName}:${version}",returnStdout: true)
+// //                    if ("${oldImageID}" != '') {
+// //                        echo "Deleting image id: ${oldImageID}..."
+// //                        sh "docker rmi -f ${oldImageID}"
+// //                        sh "docker rmi \$(docker images -qf reference=${registry}/${imageName} -q)"
+// //                    }
 //
 //                    // pull new image
-//                    sh "docker pull ${registry}/${imageName}:${version}"
+// //                    sh "docker pull ${registry}/${imageName}:${version}"
 //                }
 //            }
 //            stage("Deploy") {
 //                // run image
-//                sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
+// //                sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
+//
+//
 //            }
 //            break;
 //    }
@@ -63,5 +62,8 @@ node {
 //    throw e
 //  }
 // }
-// https://35.186.146.185/v3 end point
-//token-9qmxg:bnr24n7jpvr7wc7dwccb5mcs86ltm8mdx6rv9hmf6dckz6cvkvf96k
+// // https://35.186.146.185/v3 end point
+// //token-9qmxg:bnr24n7jpvr7wc7dwccb5mcs86ltm8mdx6rv9hmf6dckz6cvkvf96k
+node {
+   rancherRedeploy alwaysPull: true, credential: '67e3a95c-316d-4e14-9366-f44b604fdf8e', images: 'chjplove/kafka-producer-processor:latest', workload: '/p/c-b57jq:p-nn6qt/workload/deployment:default:kafka-producer-processor'
+}

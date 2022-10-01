@@ -1,0 +1,37 @@
+#
+#kind: Service
+#apiVersion: v1
+#metadata:
+#  name: spring-boot-ci-service
+#spec:
+#  selector:
+#    app: spring-boot-ci
+#  type: NodePort
+#  ports:
+#    - protocol: TCP
+#      port: 8080
+#      targetPort: 8080
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: example-spring-boot-ci
+#  labels:
+#    app: spring-boot-ci
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: spring-boot-ci
+#  template:
+#    metadata:
+#      labels:
+#        app: spring-boot-ci
+#    spec:
+#      imagePullSecrets:
+#        - name: pipeline-docker-registry
+#      containers:
+#        - name: maven
+#          image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+#          ports:
+#            - containerPort: 8080

@@ -25,8 +25,8 @@ node {
        sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
        sh "docker push ${registry}/${imageName}:${version}"
    }
-//    switch(env.BRANCH_NAME) {
-//        case 'main':
+   switch(env.BRANCH_NAME) {
+       case 'main':
 //            stage('Pull Image') {
 //                script {
 //                    // check old container if exists and delete old container
@@ -49,14 +49,18 @@ node {
 //                    sh "docker pull ${registry}/${imageName}:${version}"
 //                }
 //            }
-//            stage("Deploy") {
-//                // run image
+           stage("Deploy") {
+               // run image
 //                sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
-//            }
-//            break;
-//    }
+                sh "rancher login https://35.186.146.185/v3 --token token-9qmxg:bnr24n7jpvr7wc7dwccb5mcs86ltm8mdx6rv9hmf6dckz6cvkvf96k"
+                sh "rancher-redeploy default kafka-producer-processor"
+           }
+           break;
+   }
  } catch (e) {
    currentBuild.result = "FAILED"
    throw e
  }
 }
+// https://35.186.146.185/v3 end point
+//token-9qmxg:bnr24n7jpvr7wc7dwccb5mcs86ltm8mdx6rv9hmf6dckz6cvkvf96k

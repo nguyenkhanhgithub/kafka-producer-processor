@@ -52,8 +52,6 @@ node {
            stage("Deploy") {
                // run image
 //                sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
-                sh "rancher login https://35.186.146.185/v3 --token token-9qmxg:bnr24n7jpvr7wc7dwccb5mcs86ltm8mdx6rv9hmf6dckz6cvkvf96k"
-                sh "rancher-redeploy default kafka-producer-processor"
            }
            break;
    }

@@ -14,10 +14,15 @@ pipeline {
         DOCKER_FILE = "Dockerfile"
     }
     stages {
+//         stage ('Initialize') {
+//             steps {
+//                 checkout scm
+//                 script {
+//                     sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
+//                 }
+//             }
+//         }
         stage ('Build Image') {
-            agent {
-                label 'docker'
-            }
             steps {
                 script {
                     sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} -f ${DOCKER_FILE} ."

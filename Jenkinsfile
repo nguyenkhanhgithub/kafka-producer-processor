@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 pipeline {
     agent {
+        label 'docker'
         docker {
             image 'maven:3.6.1-jdk-8-alpine'
             args '-v $HOME/.m2:/root/.m2'

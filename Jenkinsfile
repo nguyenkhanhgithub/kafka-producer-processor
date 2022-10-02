@@ -1,11 +1,11 @@
 #!/usr/bin/env groovy
 node {
-   agent {
-       docker {
-           image 'maven:3.6.1-jdk-8-alpine'
-           args '-v /root/.m2:/root/.m2'
-       }
-   }
+//    agent {
+//        docker {
+//            image 'maven:3.6.1-jdk-8-alpine'
+//            args '-v /root/.m2:/root/.m2'
+//        }
+//    }
  properties([disableConcurrentBuilds()])
  try {
    project = "kafka-producer-processor"

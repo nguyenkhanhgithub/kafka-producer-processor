@@ -1,20 +1,8 @@
 #!/usr/bin/env groovy
 pipeline {
-    agent any
     stages {
-        stage('Stage 1') {
-            steps {
-                script {
-                    sh "echo a"
-                }
-            }
+        stage('This is a Level 1 Stage') {
         }
-        stage('Stage 1') {
-            steps {
-                script {
-                    sh "echo a"
-                }
-            }
-        }
+        stage('This is a Level 1 Stage') {
     }
 }

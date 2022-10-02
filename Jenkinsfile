@@ -1,8 +1,11 @@
 #!/usr/bin/env groovy
 pipeline {
+    agent any
     stages {
-        stage('This is a Level 1 Stage') {
+        stage ('Initialize') {
+            steps {
+                echo 'Placeholder.'
+            }
         }
-        stage('This is a Level 1 Stage') {
     }
 }

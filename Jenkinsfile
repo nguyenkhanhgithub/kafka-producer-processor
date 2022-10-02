@@ -14,14 +14,14 @@ pipeline {
         DOCKER_FILE = "Dockerfile"
     }
     stages {
-        stage ('Initialize') {
-            steps {
-                checkout scm
-                script {
-                    sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
-                }
-            }
-        }
+//         stage ('Initialize') {
+//             steps {
+//                 checkout scm
+//                 script {
+//                     sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
+//                 }
+//             }
+//         }
         stage ('Build Image') {
             steps {
                 script {

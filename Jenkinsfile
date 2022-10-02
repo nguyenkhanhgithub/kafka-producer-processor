@@ -7,12 +7,6 @@ node {
    imageName = "kafka-producer-processor"
    registry = "chjplove"
    version = "latest"
-   agent {
-       docker {
-           image 'maven:3.6.1-jdk-8-alpine'
-           args '-v $HOME/.m2:/root/.m2'
-       }
-   }
    stage('Checkout Branch') {
        checkout scm
        sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"

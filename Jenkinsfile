@@ -1,13 +1,18 @@
 #!/usr/bin/env groovy
 pipeline {
-    stages {
-        stage {
-            steps {
-                script {
-                    checkout scm
-                    sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
-                }
-            }
+  agent none
+  stages {
+    stage('Stage 1') {
+      steps {
+        script {
+            sh "echo a"
         }
+      }
     }
+    stage('Stage 2') {
+      steps {
+        echo "a"
+      }
+    }
+  }
 }

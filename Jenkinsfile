@@ -23,7 +23,9 @@ pipeline {
 //             }
 //         }
         stage ('Build Image') {
-            agent any
+            agent {
+                label 'docker'
+            }
             steps {
                 script {
                     sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} -f ${DOCKER_FILE} ."

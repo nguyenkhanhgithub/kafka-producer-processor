@@ -1,17 +1,17 @@
-stages:
-  - name: Build
-    steps:
-      - runScriptConfig:
-          image: maven:3.6-jdk-8-alpine
-          shellScript: |-
-            mvn -B -Dmaven.test.skip=true clean package
-  - name: Publish
-    steps:
-      - publishImageConfig:
-          dockerfilePath: ./Dockerfile
-          buildContext: .
-          tag: chjplove/kafka-producer-processor:latest
-  - name: Deploy
-    steps:
-      - applyYamlConfig:
-          path: ./deployment.yaml
+#stages:
+#  - name: Build
+#    steps:
+#      - runScriptConfig:
+#          image: maven:3.6-jdk-8-alpine
+#          shellScript: |-
+#            mvn -B -Dmaven.test.skip=true clean package
+#  - name: Publish
+#    steps:
+#      - publishImageConfig:
+#          dockerfilePath: ./Dockerfile
+#          buildContext: .
+#          tag: chjplove/kafka-producer-processor:latest
+#  - name: Deploy
+#    steps:
+#      - applyYamlConfig:
+#          path: ./deployment.yaml

@@ -13,35 +13,33 @@ jobs:
   build-to-main:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout GitHub Action
-      if: ${{ github.ref == 'refs/heads/main' }}
-      uses: actions/checkout@v2
-    - name: Set up JDK 1.8
-      if: ${{ github.ref == 'refs/heads/main' }}
-      uses: actions/setup-java@v1
-      with:
-        java-version: '1.8'
-        cache: maven
-    - name: Build with Maven
-      if: ${{ github.ref == 'refs/heads/main' }}
-      run: mvn -B package --file pom.xml -Dmaven.test.skip=true
-    - name: Build & Push Docker Image
-      if: ${{ github.ref == 'refs/heads/main' }}
-      uses: mr-smithers-excellent/docker-build-push@v5
-      with:
-        image: chjplove/kafka-producer-processor
-        tags: latest
-        registry: docker.io
-        username: ${{secrets.DOCKER_USERNAME}}
-        password: ${{secrets.DOCKER_PASSWORD}}
+#    - name: Checkout GitHub Action
+#      if: ${{ github.ref == 'refs/heads/main' }}
+#      uses: actions/checkout@v2
+#    - name: Set up JDK 1.8
+#      if: ${{ github.ref == 'refs/heads/main' }}
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: '1.8'
+#        cache: maven
+#    - name: Build with Maven
+#      if: ${{ github.ref == 'refs/heads/main' }}
+#      run: mvn -B package --file pom.xml -Dmaven.test.skip=true
+#    - name: Build & Push Docker Image
+#      if: ${{ github.ref == 'refs/heads/main' }}
+#      uses: mr-smithers-excellent/docker-build-push@v5
+#      with:
+#        image: chjplove/kafka-producer-processor
+#        tags: latest
+#        registry: docker.io
+#        username: ${{secrets.DOCKER_USERNAME}}
+#        password: ${{secrets.DOCKER_PASSWORD}}
     - name: Deploy
-      uses: yantadeu/rancher-deploy-action@v0.0.2
-      env:
-        RANCHER_ACCESS_KEY: 'token-w6x4q'
-        RANCHER_SECRET_KEY: 'zx7xxppdfj2c7g8h4fzxtqpjvtcnxsg4rnmdncwgltptgmgc88hdln'
-        RANCHER_URL_API: 'https://35.186.146.185/v3'
-        SERVICE_NAME: '/p/c-zmk9v:p-fbbrp'
-        DOCKER_IMAGE: 'chjplove/kafka-producer-processor:latest'
+      uses: fjogeleit/http-request-action@master
+      with:
+        url: 'https://35.186.146.185/p/c-zmk9v:p-fbbrp/workload/deployment:default:kafka-producer-processor'
+        method: 'PUT'
+        bearerToken: 'token-q2w6j:xm6xqs2tdjsw9vrbm9mm9l98g6hgw2fw7j29crbhn45sd44gjrf9vx'
 #    - name: Run a script on remote server (start the application)
 #      if: ${{ github.ref == 'refs/heads/main' }}
 #      uses: fifsky/ssh-action@master

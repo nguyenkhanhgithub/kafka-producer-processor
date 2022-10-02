@@ -1,5 +1,11 @@
 #!/usr/bin/env groovy
 node {
+    agent {
+        docker {
+            image 'maven:3.6.1-jdk-8-alpine'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+    }
  properties([disableConcurrentBuilds()])
  try {
    project = "kafka-producer-processor"
@@ -11,9 +17,9 @@ node {
        checkout scm
        sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
    }
-//    stage('Build Image') {
-//        sh "docker build -t ${registry}/${imageName}:${version} -f ${dockerFile} ."
-//    }
+   stage('Build Image') {
+       sh "docker build -t ${registry}/${imageName}:${version} -f ${dockerFile} ."
+   }
    stage('Push Image') {
        sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
        sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
@@ -24,19 +30,19 @@ node {
            stage('Pull Image') {
                script {
                    // check old container if exists and delete old container
-//                    def oldContainerID = sh(script: "docker ps -a -fname=${imageName} -q", returnStdout: true)
-//                    if ("${oldContainerID}" != '') {
-//                        echo "Deleting image id: ${oldContainerID}..."
-//                        sh "docker stop ${oldContainerID}"
-//                        sh "docker container rm ${oldContainerID}"
-//                    }
+                   def oldContainerID = sh(script: "docker ps -a -fname=${imageName} -q", returnStdout: true)
+                   if ("${oldContainerID}" != '') {
+                       echo "Deleting image id: ${oldContainerID}..."
+                       sh "docker stop ${oldContainerID}"
+                       sh "docker container rm ${oldContainerID}"
+                   }
                     // check old image if exists and delete old image
-//                    def oldImageID = sh(script: "docker images -qf reference=${registry}/${imageName}:${version}",returnStdout: true)
-//                    if ("${oldImageID}" != '') {
-//                        echo "Deleting image id: ${oldImageID}..."
-//                        sh "docker rmi -f ${oldImageID}"
-//                        sh "docker rmi \$(docker images -qf reference=${registry}/${imageName} -q)"
-//                    }
+                   def oldImageID = sh(script: "docker images -qf reference=${registry}/${imageName}:${version}",returnStdout: true)
+                   if ("${oldImageID}" != '') {
+                       echo "Deleting image id: ${oldImageID}..."
+                       sh "docker rmi -f ${oldImageID}"
+                       sh "docker rmi \$(docker images -qf reference=${registry}/${imageName} -q)"
+                   }
 
                    // pull new image
 //                    sh "docker pull ${registry}/${imageName}:${version}"
@@ -44,7 +50,6 @@ node {
            }
            stage("Deploy") {
                // run image
-//                sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
                 sh """curl -k --location --request POST 'https://35.186.146.185/v3/project/c-zmk9v:p-fbbrp/workloads/deployment:default:kafka-producer-processor?action=redeploy' \
                         --header 'Authorization: Bearer token-q2w6j:xm6xqs2tdjsw9vrbm9mm9l98g6hgw2fw7j29crbhn45sd44gjrf9vx'"""
            }

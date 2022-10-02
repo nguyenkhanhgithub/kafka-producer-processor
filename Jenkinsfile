@@ -1,13 +1,4 @@
 #!/usr/bin/env groovy
-pipeline {
-    agent {
-        docker {
-            image 'maven:3.6.1-jdk-8-alpine'
-            args '-v $HOME/.m2:/root/.m2'
-        }
-    }
-}
-
 node {
  properties([disableConcurrentBuilds()])
  try {

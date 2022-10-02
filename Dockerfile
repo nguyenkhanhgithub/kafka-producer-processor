@@ -1,9 +1,9 @@
 FROM maven:3.6.1-jdk-8-alpine AS build
 WORKDIR /app
 COPY pom.xml ./pom.xml
-RUN mvn dependency:go-offline -B
+RUN mvn dependency:go-offline
 COPY src ./src
-RUN mvn -B -Dmaven.test.skip=true clean package
+RUN mvn package
 
 #
 # Package stage

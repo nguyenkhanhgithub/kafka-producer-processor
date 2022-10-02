@@ -13,13 +13,19 @@ node {
    imageName = "kafka-producer-processor"
    registry = "chjplove"
    version = "latest"
+   agent {
+       docker {
+           image 'maven:3.6.1-jdk-8-alpine'
+           args '-v $HOME/.m2:/root/.m2'
+       }
+   }
    stage('Checkout Branch') {
        checkout scm
        sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
    }
-   stage('Build Image') {
-       sh "docker build -t ${registry}/${imageName}:${version} -f ${dockerFile} ."
-   }
+//    stage('Build Image') {
+//        sh "docker build -t ${registry}/${imageName}:${version} -f ${dockerFile} ."
+//    }
    stage('Push Image') {
        sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
        sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"

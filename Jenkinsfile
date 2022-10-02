@@ -52,7 +52,6 @@ node {
            stage("Deploy") {
                // run image
 //                sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
-//                 rancherRedeploy alwaysPull: true, credentialId: '67e3a95c-316d-4e14-9366-f44b604fdf8e', images: 'chjplove/kafka-producer-processor:latest', workload: '/p/c-b57jq:p-nn6qt/workload/deployment:default:kafka-producer-processor'
            }
            break;
    }

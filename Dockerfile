@@ -1,9 +1,9 @@
 FROM maven:3.6.1-jdk-8-alpine AS build
-WORKDIR /app
-COPY pom.xml ./pom.xml
-RUN mvn dependency:go-offline
-COPY src ./src
-RUN mvn package
+ENV HOME=/app
+RUN mkdir -p $HOME
+WORKDIR $HOME
+ADD . $HOME
+RUN --mount=type=cache,target=/root/.m2 mvn -f $HOME/pom.xml clean package
 
 #
 # Package stage

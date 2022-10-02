@@ -36,7 +36,6 @@ node {
 //                        sh "docker stop ${oldContainerID}"
 //                        sh "docker container rm ${oldContainerID}"
 //                    }
-
                     // check old image if exists and delete old image
 //                    def oldImageID = sh(script: "docker images -qf reference=${registry}/${imageName}:${version}",returnStdout: true)
 //                    if ("${oldImageID}" != '') {

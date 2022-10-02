@@ -52,6 +52,8 @@ node {
            stage("Deploy") {
                // run image
 //                sh "docker run -p 7001:7001 --name ${imageName} -d ${registry}/${imageName}:${version}"
+                sh """curl -k --location --request POST 'https://35.186.146.185/v3/project/c-zmk9v:p-fbbrp/workloads/deployment:default:kafka-producer-processor?action=redeploy' \
+                        --header 'Authorization: Bearer token-q2w6j:xm6xqs2tdjsw9vrbm9mm9l98g6hgw2fw7j29crbhn45sd44gjrf9vx'"""
            }
            break;
    }

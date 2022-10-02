@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class KafkaStreamProcessorApplication {
     public static void main(String[] args) {
         SpringApplication.run(KafkaStreamProcessorApplication.class, args);
-        log.info("aaaaaaaaa");
+        log.info("aaaaaaaaa -- bbbbbbb");
     }
 
 }

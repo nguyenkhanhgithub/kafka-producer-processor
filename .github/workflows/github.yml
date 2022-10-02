@@ -33,13 +33,15 @@ jobs:
 #        registry: docker.io
 #        username: ${{secrets.DOCKER_USERNAME}}
 #        password: ${{secrets.DOCKER_PASSWORD}}
-    - name: Deploy
-      uses: fjogeleit/http-request-action@master
-      with:
-        url: 'https://35.186.146.185/v3/project/c-zmk9v:p-fbbrp/workload/deployment:default:kafka-producer-processor'
-        method: 'PUT'
-        bearerToken: 'token-q2w6j:xm6xqs2tdjsw9vrbm9mm9l98g6hgw2fw7j29crbhn45sd44gjrf9vx'
-        data: '{"scale": 1}'
+# -----------
+#    - name: Deploy
+#      uses: fjogeleit/http-request-action@master
+#      with:
+#        url: 'https://35.186.146.185/v3/project/c-zmk9v:p-fbbrp/workload/deployment:default:kafka-producer-processor'
+#        method: 'PUT'
+#        bearerToken: 'token-q2w6j:xm6xqs2tdjsw9vrbm9mm9l98g6hgw2fw7j29crbhn45sd44gjrf9vx'
+#        data: '{"scale": 1}'
+# ------------
 #    - name: Run a script on remote server (start the application)
 #      if: ${{ github.ref == 'refs/heads/main' }}
 #      uses: fifsky/ssh-action@master

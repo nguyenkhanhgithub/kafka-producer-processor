@@ -35,11 +35,13 @@ node {
                         --header 'Authorization: Bearer ${env.RANCHER_API_TOKEN}'"""
            }
            break;
+       case 'develop':
+            stage("Deploy") {
+                sh "echo ${env.BRANCH_NAME}"
+            }
    }
  } catch (e) {
    currentBuild.result = "FAILED"
    throw e
  }
 }
-// https://35.186.146.185/v3 end point
-//token-9qmxg:bnr24n7jpvr7wc7dwccb5mcs86ltm8mdx6rv9hmf6dckz6cvkvf96k

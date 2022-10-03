@@ -8,7 +8,10 @@ node {
  }
  properties([disableConcurrentBuilds()])
  try {
-   project = "kafka-producer-processor"
+   namespace = "default"
+   clusterId = "c-zmk9v"
+   projectId = "p-fbbrp"
+   deployment = "kafka-producer-processor"
    dockerFile = "Dockerfile"
    imageName = "kafka-producer-processor"
    registry = "chjplove"
@@ -24,34 +27,12 @@ node {
        sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
        sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
        sh "docker push ${registry}/${imageName}:${version}"
-//        sh "docker rmi \$(docker images -qf reference=${registry}/${imageName} -q)"
    }
    switch(env.BRANCH_NAME) {
        case 'main':
-           stage('Pull Image') {
-               script {
-                   // check old container if exists and delete old container
-//                    def oldContainerID = sh(script: "docker ps -a -fname=${imageName} -q", returnStdout: true)
-//                    if ("${oldContainerID}" != '') {
-//                        echo "Deleting image id: ${oldContainerID}..."
-//                        sh "docker stop ${oldContainerID}"
-//                        sh "docker container rm ${oldContainerID}"
-//                    }
-                    // check old image if exists and delete old image
-//                    def oldImageID = sh(script: "docker images -qf reference=${registry}/${imageName}:${version}",returnStdout: true)
-//                    if ("${oldImageID}" != '') {
-//                        echo "Deleting image id: ${oldImageID}..."
-//                        sh "docker rmi -f ${oldImageID}"
-//                        sh "docker rmi \$(docker images -qf reference=${registry}/${imageName} -q)"
-//                    }
-                   // pull new image
-//                    sh "docker pull ${registry}/${imageName}:${version}"
-               }
-           }
            stage("Deploy") {
-               // run image
-                sh """curl -k --location --request POST 'https://35.186.146.185/v3/project/c-zmk9v:p-fbbrp/workloads/deployment:default:kafka-producer-processor?action=redeploy' \
-                        --header 'Authorization: Bearer token-q2w6j:xm6xqs2tdjsw9vrbm9mm9l98g6hgw2fw7j29crbhn45sd44gjrf9vx'"""
+                sh """curl -k --location --request POST '${env.RANCHER_API_URL}/project/${clusterId}:${projectId}/workloads/deployment:${namespace}:${deployment}?action=redeploy' \
+                        --header 'Authorization: Bearer ${env.RANCHER_API_TOKEN}'"""
            }
            break;
    }

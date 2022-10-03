@@ -35,6 +35,7 @@ logging:
 sentry:
   dsn: ${SENTRY_DNS}
   traces-sample-rate: 1.0
+  environment: ${SENTRY_ENV}
 debug: ${DEBUG}
 server:
   port: 7001

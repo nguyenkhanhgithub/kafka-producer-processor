@@ -1,4 +1,3 @@
-
 spring:
   kafka:
     bootstrap-servers: 35.186.146.185:9092
@@ -33,6 +32,9 @@ logging:
   level:
     org.springframework: info
     com.cmcglobal.kafkstreamprocessor: info
+sentry:
+  dsn: https://e7871e83ea98465ba97ea773e2a1f86e@o4503917375324160.ingest.sentry.io/4503917389021184
+  traces-sample-rate: 1.0
 debug: true
 server:
   port: 7001

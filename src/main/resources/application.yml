@@ -1,16 +1,16 @@
 spring:
   kafka:
-    bootstrap-servers: 35.186.146.185:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     topic:
-      replication-factor: 1
-      num-partition: 3
+      replication-factor: ${REPLICATION_FACTOR}
+      num-partition: ${NUM_PARTITION}
     producer:
       acks: all
       retries: 100
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       properties:
-        schema.registry.url: http://35.186.146.185:8081
+        schema.registry.url: ${SCHEMA_RETISTRY_URL}
         specific.avro.reader: true
       template:
         default-topic: test
@@ -30,10 +30,10 @@ spring:
     initialize-schema: always
 logging:
   level:
-    org.springframework: info
-    com.cmcglobal.kafkstreamprocessor: info
+    org.springframework: ${LOG_LEVEL}
+    com.cmcglobal.kafkstreamprocessor: ${LOG_LEVEL}
 sentry:
-  dsn: https://e7871e83ea98465ba97ea773e2a1f86e@o4503917375324160.ingest.sentry.io/4503917389021184
+  dsn: ${SENTRY_DNS}
   traces-sample-rate: 1.0
 debug: true
 server:

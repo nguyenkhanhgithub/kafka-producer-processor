@@ -3,7 +3,7 @@ WORKDIR /app
 COPY pom.xml ./pom.xml
 RUN mvn dependency:go-offline
 COPY src ./src
-RUN mvn package
+RUN mvn -Dmaven.test.skip=true clean package
 
 #
 # Package stage

@@ -2,8 +2,8 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     topic:
-      replication-factor: ${REPLICATION_FACTOR}
-      num-partition: ${NUM_PARTITION}
+      replication-factor: ${KAFKA_REPLICATION_FACTOR}
+      num-partition: ${KAFKA_NUM_PARTITION}
     producer:
       acks: all
       retries: 100
@@ -35,6 +35,6 @@ logging:
 sentry:
   dsn: ${SENTRY_DNS}
   traces-sample-rate: 1.0
-debug: true
+debug: ${DEBUG}
 server:
   port: 7001

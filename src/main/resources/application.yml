@@ -1,16 +1,19 @@
 spring:
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+#    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    bootstrap-servers: localhost:9092
     topic:
-      replication-factor: ${KAFKA_REPLICATION_FACTOR}
-      num-partition: ${KAFKA_NUM_PARTITION}
+#      replication-factor: ${KAFKA_REPLICATION_FACTOR}
+#      num-partition: ${KAFKA_NUM_PARTITION}
+      replication-factor: 1
+      num-partition: 3
     producer:
       acks: all
       retries: 100
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       properties:
-        schema.registry.url: ${SCHEMA_RETISTRY_URL}
+        schema.registry.url: http://localhost:8081
         specific.avro.reader: true
       template:
         default-topic: test

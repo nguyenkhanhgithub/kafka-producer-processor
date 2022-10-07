@@ -12,7 +12,6 @@ public class TopicConfig {
     public static final String DOMAIN_EVENT_TOPIC = "dashboard.email.topic";
     public static final String HRMS_EVENT_TOPIC = "hrms.event.topic";
     public static final String JIRA_EVENT_TOPIC = "jira.event.topic";
-
     @Value("${spring.kafka.topic.num-partition}")
     private int numPartitions;
 

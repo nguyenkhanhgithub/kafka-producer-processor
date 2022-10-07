@@ -14,10 +14,8 @@ public class TopicConfig {
     public static final String JIRA_EVENT_TOPIC = "jira.event.topic";
     @Value("${spring.kafka.topic.num-partition}")
     private int numPartitions;
-
     @Value("${spring.kafka.topic.replication-factor}")
     private short replicationFactor;
-
     @Bean
     public NewTopic topic() {
         return new NewTopic(DOMAIN_EVENT_TOPIC, numPartitions, replicationFactor);

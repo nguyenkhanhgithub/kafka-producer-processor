@@ -26,7 +26,6 @@ node {
        sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
        sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
        sh "docker push ${registry}/${imageName}:${version}"
-       sh "docker image rm ${registry}/${imageName}:${version}"
    }
    switch(env.BRANCH_NAME) {
        case 'develop':

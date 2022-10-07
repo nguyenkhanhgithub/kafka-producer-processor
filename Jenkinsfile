@@ -26,13 +26,6 @@ node {
        sh "docker tag ${registry}/${imageName}:${version} ${registry}/${imageName}:${version}"
        sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
        sh "docker push ${registry}/${imageName}:${version}"
-       try {
-           sh """
-            docker rmi -f \$(docker images "${registry}/${imageName}*"  -q)
-           """
-       } catch(e) {
-        sh "Remove failed"
-       }
    }
    switch(env.BRANCH_NAME) {
        case 'develop':

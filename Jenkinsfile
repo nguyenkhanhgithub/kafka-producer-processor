@@ -9,7 +9,7 @@ node {
  properties([disableConcurrentBuilds()])
  try {
    namespace = "default"
-   projectId = "c-fx7wd:p-wzdhr"
+   projectId = "c-kzd9h:p-vd76s"
    deployment = "kafka-producer-processor"
    dockerFile = "Dockerfile"
    imageName = "kafka-producer-processor"

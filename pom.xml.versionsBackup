@@ -10,7 +10,7 @@
     </parent>
     <groupId>io.github.nguyenkhanhgithub</groupId>
     <artifactId>kafka-stream-processor</artifactId>
-    <version>1.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>kafka-stream-processor</name>
     <description>Demo project for Spring Boot</description>
     <url>https://github.com/nguyenkhanhgithub/kafka-producer-processor</url>
@@ -180,11 +180,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
@@ -195,12 +190,6 @@
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                    <configuration>
-                        <argLine>
-                            --add-opens java.base/java.lang=ALL-UNNAMED
-                            --add-opens java.base/java.util=ALL-UNNAMED
-                        </argLine>
-                    </configuration>
                 </configuration>
             </plugin>
             <plugin>

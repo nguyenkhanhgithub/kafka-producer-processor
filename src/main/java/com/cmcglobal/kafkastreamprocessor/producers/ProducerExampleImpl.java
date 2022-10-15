@@ -7,7 +7,7 @@ import com.cmcglobal.kafkastreamprocessor.configs.TopicConfig;
 import com.cmcglobal.kafkastreamprocessor.entities.Example;
 import com.cmcglobal.kafkastreamprocessor.entities.HrmsRequestValue;
 import com.cmcglobal.kafkastreamprocessor.entities.JiraTicketValue;
-import com.cmcglobal.kafkastreamprocessor.mappers.EntityMapper;
+//import com.cmcglobal.kafkastreamprocessor.mappers.EntityMapper;
 import com.cmcglobal.kafkastreamprocessor.utils.MessagePack;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class ProducerExampleImpl implements BaseProducerInterface {
 
     @Autowired
     protected KafkaTemplate<String, JiraTicketValueAvro> kafkaTemplateJira;
-    @Autowired protected EntityMapper entityMapper;
+//    @Autowired protected EntityMapper entityMapper;
 
     @Override
     @Scheduled(cron = "0/20 * * * * *")

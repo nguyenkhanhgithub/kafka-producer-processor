@@ -41,6 +41,7 @@ node {
                 sh "echo ${env.BRANCH_NAME}"
             }
             break;
+
        case 'main':
            stage("Deploy") {
 //                 sh """curl -k --location --request POST '${env.RANCHER_API_URL}/project/${clusterId}:${projectId}/workloads/deployment:${namespace}:${deployment}?action=redeploy' \

@@ -45,7 +45,6 @@ public class ProducerExampleImpl implements BaseProducerInterface {
         kafkaTemplate.send(TopicConfig.DOMAIN_EVENT_TOPIC, exampleAvro);
         log.info("success {}", exampleAvro);
     }
-
 //    @Scheduled(cron = "0/5 * * * * *")
     public void hrmsProducer() {
         log.info("b");

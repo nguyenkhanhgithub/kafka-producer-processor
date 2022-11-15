@@ -48,6 +48,7 @@ public class ProducerExampleImpl implements BaseProducerInterface {
 
 //    @Scheduled(cron = "0/5 * * * * *")
     public void hrmsProducer() {
+        log.info("a");
         HrmsRequestValueAvro avro = new HrmsRequestValueAvro();
         HrmsRequestValue value = new HrmsRequestValue();
         avro.setId(1);

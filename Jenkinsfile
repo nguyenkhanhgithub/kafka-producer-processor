@@ -1,4 +1,4 @@
-#!/usr/bin/env groovy
+// #!/usr/bin/env groovy
 // node {
 //  agent {
 //     docker {
@@ -62,7 +62,6 @@
 //    throw e
 //  }
 // }
-
 pipeline {
     agent {
         docker {
@@ -70,15 +69,6 @@ pipeline {
             args '-v $HOME/.m2:/root/.m2'
         }
     }
-//     environment {
-//        NAME_SPACE = "default"
-//        PROJECT_ID = "c-kzd9h:p-vd76s"
-//        DEPLOYMENT = "kafka-producer-processor"
-//        DOCKER_FILE = "Dockerfile"
-//        IMAGE_NAME = "kafka-producer-processor"
-//        REGISTRY = "chjplove"
-//        VERSION = "latest"
-//     }
     tools {
         maven 'MAVEN_HOME'
     }

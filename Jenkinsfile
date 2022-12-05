@@ -10,6 +10,7 @@ node {
         jdk 'JAVA_HOME'
      }
  }
+
  properties([disableConcurrentBuilds()])
  try {
    namespace = "default"

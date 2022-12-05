@@ -79,6 +79,7 @@ pipeline {
        stage('verify') {
             steps {
                 sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar \
+                      -Dsonar.branch.name=${env.BRANCH_NAME} \
                       -Dsonar.projectKey=kafka-producer-processor \
                       -Dsonar.host.url=http://34.142.231.60:9001 \
                       -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"

@@ -5,12 +5,7 @@ node {
         image 'maven:3-alpine'
         args '-v $HOME/.m2:/root/.m2'
     }
- }
-tool {
-    maven "MAVEN_HOME"
-    jdk "JAVA_HOME"
-}
- properties([disableConcurrentBuilds()])
+ }perties([disableConcurrentBuilds()])
  try {
    namespace = "default"
    projectId = "c-kzd9h:p-vd76s"

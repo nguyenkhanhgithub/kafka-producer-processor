@@ -97,19 +97,19 @@ pipeline {
                       -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
             }
        }
-
-       stage('Build Image') {
-            steps {
-                sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${VERSION} -f ${DOCKER_FILE} ."
-            }
-       }
-
-       stage('Push Image') {
-            steps {
-               sh "docker tag ${REGISTRY}/${IMAGE_NAME}:${VERSION} ${REGISTRY}/${IMAGE_NAME}:${VERSION}"
-               sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
-               sh "docker push ${REGISTRY}/${IMAGE_NAME}:${VERSION}"
-            }
-       }
+//
+//        stage('Build Image') {
+//             steps {
+//                 sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${VERSION} -f ${DOCKER_FILE} ."
+//             }
+//        }
+//
+//        stage('Push Image') {
+//             steps {
+//                sh "docker tag ${REGISTRY}/${IMAGE_NAME}:${VERSION} ${REGISTRY}/${IMAGE_NAME}:${VERSION}"
+//                sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
+//                sh "docker push ${REGISTRY}/${IMAGE_NAME}:${VERSION}"
+//             }
+//        }
     }
 }

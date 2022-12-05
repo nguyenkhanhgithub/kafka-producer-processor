@@ -13,7 +13,6 @@
     <version>1.0.1</version>
     <name>kafka-stream-processor</name>
     <description>Demo project for Spring Boot</description>
-    <url>https://github.com/nguyenkhanhgithub/kafka-producer-processor</url>
     <properties>
         <java.version>1.8</java.version>
         <avro.version>1.8.2</avro.version>

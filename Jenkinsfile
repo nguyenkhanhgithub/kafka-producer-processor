@@ -86,12 +86,16 @@ pipeline {
        }
 
        stage('Build Image') {
-
+            steps {
+                sh "echo a"
+            }
        }
 
 
        stage('Push Image') {
-
+            steps {
+                sh "echo b"
+            }
        }
     }
 }

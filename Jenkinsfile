@@ -64,7 +64,23 @@
 // }
 
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3-alpine'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+    }
+
+
+    environment {
+       NAME_SPACE = "default"
+       PROJECT_ID = "c-kzd9h:p-vd76s"
+       DEPLOYMENT = "kafka-producer-processor"
+       DOCKER_FILE = "Dockerfile"
+       IMAGE_NAME = "kafka-producer-processor"
+       REGISTRY = "chjplove"
+       VERSION = "latest"
+    }
     tools {
         maven 'MAVEN_HOME'
     }
@@ -79,10 +95,23 @@ pipeline {
        stage('verify') {
             steps {
                 sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar \
-                      -Dsonar.branch.name=${env.BRANCH_NAME} \
                       -Dsonar.projectKey=kafka-producer-processor \
                       -Dsonar.host.url=http://34.142.231.60:9001 \
                       -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
+            }
+       }
+
+       stage('Build Image') {
+            steps {
+                sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${VERSION} -f ${DOCKER_FILE} ."
+            }
+       }
+
+       stage('Push Image') {
+            steps {
+               sh "docker tag ${REGISTRY}/${IMAGE_NAME}:${VERSION} ${REGISTRY}/${IMAGE_NAME}:${VERSION}"
+               sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
+               sh "docker push ${REGISTRY}/${IMAGE_NAME}:${VERSION}"
             }
        }
     }

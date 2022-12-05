@@ -31,8 +31,8 @@ node {
        case 'develop':
             stage("Deploy") {
                 sh "echo ${env.BRANCH_NAME}"
-                sh """curl -k --location --request POST '${env.RANCHER_API_URL}/project/${projectId}/workloads/deployment:${namespace}:${deployment}?action=redeploy' \
-                        --header 'Authorization: Bearer ${env.RANCHER_API_TOKEN}'"""
+//                 sh """curl -k --location --request POST '${env.RANCHER_API_URL}/project/${projectId}/workloads/deployment:${namespace}:${deployment}?action=redeploy' \
+//                         --header 'Authorization: Bearer ${env.RANCHER_API_TOKEN}'"""
             }
             break;
 
@@ -44,6 +44,7 @@ node {
 
        case 'main':
            stage("Deploy") {
+                sh "echo ${env.BRANCH_NAME}"
 //                 sh """curl -k --location --request POST '${env.RANCHER_API_URL}/project/${clusterId}:${projectId}/workloads/deployment:${namespace}:${deployment}?action=redeploy' \
 //                         --header 'Authorization: Bearer ${env.RANCHER_API_TOKEN}'"""
            }

@@ -6,6 +6,10 @@ node {
         args '-v $HOME/.m2:/root/.m2'
     }
  }
+tool {
+    maven "MAVEN_HOME"
+    jdk "JAVA_HOME"
+}
  properties([disableConcurrentBuilds()])
  try {
    namespace = "default"

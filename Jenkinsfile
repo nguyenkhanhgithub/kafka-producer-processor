@@ -84,18 +84,5 @@ pipeline {
                       -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
             }
        }
-
-       stage('Build Image') {
-            steps {
-                sh "echo a"
-            }
-       }
-
-
-       stage('Push Image') {
-            steps {
-                sh "echo b"
-            }
-       }
     }
 }

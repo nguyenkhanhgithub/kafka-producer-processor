@@ -1,31 +1,31 @@
-// #!/usr/bin/env groovy
-// node {
-//  agent {
-//     docker {
-//         image 'maven:3-alpine'
-//         args '-v $HOME/.m2:/root/.m2'
-//     }
-//  }
-//
-//  properties([disableConcurrentBuilds()])
-//  try {
-//    namespace = "default"
-//    projectId = "c-kzd9h:p-vd76s"
-//    deployment = "kafka-producer-processor"
-//    dockerFile = "Dockerfile"
-//    imageName = "kafka-producer-processor"
-//    registry = "chjplove"
-//    version = "latest"
-//    stage('Checkout Branch') {
-//        checkout scm
-//        sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
-//    }
-//    stage ('verify') {
-//     sh "mvn clean verify sonar:sonar \
-//           -Dsonar.projectKey=kafka-producer-processor \
-//           -Dsonar.host.url=http://34.142.231.60:9001 \
-//           -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
-//    }
+#!/usr/bin/env groovy
+node {
+ agent {
+    docker {
+        image 'maven:3-alpine'
+        args '-v $HOME/.m2:/root/.m2'
+    }
+ }
+
+ properties([disableConcurrentBuilds()])
+ try {
+   namespace = "default"
+   projectId = "c-kzd9h:p-vd76s"
+   deployment = "kafka-producer-processor"
+   dockerFile = "Dockerfile"
+   imageName = "kafka-producer-processor"
+   registry = "chjplove"
+   version = "latest"
+   stage('Checkout Branch') {
+       checkout scm
+       sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
+   }
+   stage ('verify') {
+    sh "mvn clean verify sonar:sonar \
+          -Dsonar.projectKey=kafka-producer-processor \
+          -Dsonar.host.url=http://34.142.231.60:9001 \
+          -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
+   }
 //    stage('Build Image') {
 //        sh "docker build -t ${registry}/${imageName}:${version} -f ${dockerFile} ."
 //    }
@@ -56,36 +56,36 @@
 // //                         --header 'Authorization: Bearer ${env.RANCHER_API_TOKEN}'"""
 //            }
 //            break;
-//    }
-//  } catch (e) {
-//    currentBuild.result = "FAILED"
-//    throw e
-//  }
-// }
-pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v $HOME/.m2:/root/.m2'
-        }
-    }
-    tools {
-        maven 'MAVEN_HOME'
-    }
-    stages {
-       stage('Checkout Branch') {
-            steps {
-                checkout scm
-                sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
-            }
-       }
-       stage('verify') {
-            steps {
-                sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar \
-                      -Dsonar.projectKey=kafka-producer-processor \
-                      -Dsonar.host.url=http://34.142.231.60:9001 \
-                      -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
-            }
-       }
-    }
+   }
+ } catch (e) {
+   currentBuild.result = "FAILED"
+   throw e
+ }
 }
+// pipeline {
+//     agent {
+//         docker {
+//             image 'maven:3-alpine'
+//             args '-v $HOME/.m2:/root/.m2'
+//         }
+//     }
+//     tools {
+//         maven 'MAVEN_HOME'
+//     }
+//     stages {
+//        stage('Checkout Branch') {
+//             steps {
+//                 checkout scm
+//                 sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
+//             }
+//        }
+//        stage('verify') {
+//             steps {
+//                 sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar \
+//                       -Dsonar.projectKey=kafka-producer-processor \
+//                       -Dsonar.host.url=http://34.142.231.60:9001 \
+//                       -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
+//             }
+//        }
+//     }
+// }

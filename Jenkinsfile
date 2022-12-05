@@ -6,7 +6,6 @@ node {
         args '-v $HOME/.m2:/root/.m2'
     }
  }
-
     tools {
       maven 'MAVEN_HOME'
       jdk 'JAVA_HOME'

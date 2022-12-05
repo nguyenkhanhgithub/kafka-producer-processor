@@ -5,11 +5,10 @@ node {
         image 'maven:3-alpine'
         args '-v $HOME/.m2:/root/.m2'
     }
- }
-
- tools {
-    maven 'MAVEN_HOME'
-    jdk 'JAVA_HOME'
+     tools {
+        maven 'MAVEN_HOME'
+        jdk 'JAVA_HOME'
+     }
  }
 
  properties([disableConcurrentBuilds()])

@@ -70,25 +70,25 @@ pipeline {
             args '-v $HOME/.m2:/root/.m2'
         }
     }
-    environment {
-       NAME_SPACE = "default"
-       PROJECT_ID = "c-kzd9h:p-vd76s"
-       DEPLOYMENT = "kafka-producer-processor"
-       DOCKER_FILE = "Dockerfile"
-       IMAGE_NAME = "kafka-producer-processor"
-       REGISTRY = "chjplove"
-       VERSION = "latest"
-    }
+//     environment {
+//        NAME_SPACE = "default"
+//        PROJECT_ID = "c-kzd9h:p-vd76s"
+//        DEPLOYMENT = "kafka-producer-processor"
+//        DOCKER_FILE = "Dockerfile"
+//        IMAGE_NAME = "kafka-producer-processor"
+//        REGISTRY = "chjplove"
+//        VERSION = "latest"
+//     }
     tools {
         maven 'MAVEN_HOME'
     }
     stages {
-//        stage('Checkout Branch') {
-//             steps {
-//                 checkout scm
-//                 sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
-//             }
-//        }
+       stage('Checkout Branch') {
+            steps {
+                checkout scm
+                sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
+            }
+       }
        stage('verify') {
             steps {
                 sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar \
@@ -97,19 +97,5 @@ pipeline {
                       -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
             }
        }
-//
-//        stage('Build Image') {
-//             steps {
-//                 sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${VERSION} -f ${DOCKER_FILE} ."
-//             }
-//        }
-//
-//        stage('Push Image') {
-//             steps {
-//                sh "docker tag ${REGISTRY}/${IMAGE_NAME}:${VERSION} ${REGISTRY}/${IMAGE_NAME}:${VERSION}"
-//                sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD} docker.io"
-//                sh "docker push ${REGISTRY}/${IMAGE_NAME}:${VERSION}"
-//             }
-//        }
     }
 }

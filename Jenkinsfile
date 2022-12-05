@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-node {
+pipeline {
  agent {
     docker {
         image 'maven:3-alpine'

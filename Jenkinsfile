@@ -70,8 +70,6 @@ pipeline {
             args '-v $HOME/.m2:/root/.m2'
         }
     }
-
-
     environment {
        NAME_SPACE = "default"
        PROJECT_ID = "c-kzd9h:p-vd76s"
@@ -85,13 +83,12 @@ pipeline {
         maven 'MAVEN_HOME'
     }
     stages {
-       stage('Checkout Branch') {
-            steps {
-                checkout scm
-                sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
-            }
-       }
-
+//        stage('Checkout Branch') {
+//             steps {
+//                 checkout scm
+//                 sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
+//             }
+//        }
        stage('verify') {
             steps {
                 sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar \

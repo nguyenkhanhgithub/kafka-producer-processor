@@ -24,7 +24,6 @@ node {
        checkout scm
        sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
    }
-
    stage ('verify') {
     sh "mvn clean verify sonar:sonar \
           -Dsonar.projectKey=kafka-producer-processor \

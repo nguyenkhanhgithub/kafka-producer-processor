@@ -25,7 +25,9 @@ node {
     def scannerHome = tool 'sonarqube';
     def mvnTool = tool 'MAVEN_HOME'
     withSonarQubeEnv('sonarqube') {
-        sh "${mvnTool} -Dmaven.test.skip=true clean verify sonar:sonar"
+        withMaven {
+            sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar"
+        }
         sh "${scannerHome}/bin/sonar-scanner \
               -Dsonar.projectKey=kafka-producer-processor \
               -Dsonar.host.url=http://34.142.231.60:9001 \

@@ -23,10 +23,10 @@ node {
 
    stage('SonarQube analysis')  {
         def scannerHome = tool 'sonarqube';
-        withMaven(maven: 'MAVEN_HOME') {
-            sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar"
-        }
         withSonarQubeEnv('sonarqube') {
+            withMaven(maven: 'MAVEN_HOME') {
+                sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar"
+            }
             sh "${scannerHome}/bin/sonar-scanner \
                   -Dsonar.projectKey=kafka-producer-processor \
                   -Dsonar.host.url=http://34.142.231.60:9001 \

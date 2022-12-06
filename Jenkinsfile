@@ -21,9 +21,16 @@ node {
        sh "git checkout ${env.BRANCH_NAME} && git reset --hard origin/${env.BRANCH_NAME}"
    }
 
-   stage('Build')  {
+   stage('SonarQube analysis')  {
+        def scannerHome = tool 'sonarqube';
         withMaven(maven: 'MAVEN_HOME') {
-            sh "mvn clean package"
+            sh "-Dmaven.test.skip=true clean verify sonar:sonar"
+        }
+        withSonarQubeEnv('sonarqube') {
+            sh "${scannerHome}/bin/sonar-scanner \
+                  -Dsonar.projectKey=kafka-producer-processor \
+                  -Dsonar.host.url=http://34.142.231.60:9001 \
+                  -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
         }
    }
 

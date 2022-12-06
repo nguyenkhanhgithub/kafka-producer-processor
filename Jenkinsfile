@@ -22,7 +22,7 @@ node {
    }
 
    stage('Build')  {
-        withMaven(maven: 'mvn') {
+        withMaven(maven: 'MAVEN_HOME') {
             sh "mvn clean package"
         }
    }

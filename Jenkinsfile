@@ -23,6 +23,7 @@ node {
 
    stage ('SonarQube analysis') {
     def scannerHome = tool 'sonarqube';
+    def mvnTool = tool 'MAVEN_HOME'
     withSonarQubeEnv('sonarqube') {
         sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar"
         sh "${scannerHome}/bin/sonar-scanner \

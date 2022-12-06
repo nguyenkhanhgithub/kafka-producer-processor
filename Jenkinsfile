@@ -27,10 +27,10 @@ node {
             withMaven(maven: 'MAVEN_HOME') {
                 sh "mvn -Dmaven.test.skip=true clean verify sonar:sonar"
             }
-            sh "${scannerHome}/bin/sonar-scanner \
-                  -Dsonar.projectKey=kafka-producer-processor \
-                  -Dsonar.host.url=http://34.142.231.60:9001 \
-                  -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
+//             sh "${scannerHome}/bin/sonar-scanner \
+//                   -Dsonar.projectKey=kafka-producer-processor \
+//                   -Dsonar.host.url=http://34.142.231.60:9001 \
+//                   -Dsonar.login=sqp_7e9824141ee7e59b4cbf47d3ff50e3643dbf9c3f"
         }
    }
 
